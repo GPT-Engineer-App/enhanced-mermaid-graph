@@ -1,0 +1,61 @@
+graph TD
+  style Start fill:#f9f,stroke:#333,stroke-width:4px
+  style Decision fill:#ff9,stroke:#333,stroke-width:4px
+  style StudentLogin fill:#9f9,stroke:#333,stroke-width:4px
+  style TeacherLogin fill:#9f9,stroke:#333,stroke-width:4px
+  style Authentication fill:#f99,stroke:#333,stroke-width:4px
+  style Success fill:#9ff,stroke:#333,stroke-width:4px
+  style Failure fill:#f99,stroke:#333,stroke-width:4px
+  style StudentDashboard fill:#9f9,stroke:#333,stroke-width:4px
+  style TeacherDashboard fill:#9f9,stroke:#333,stroke-width:4px
+  style CreateHomework fill:#ff9,stroke:#333,stroke-width:4px
+  style SaveToBackend fill:#f99,stroke:#333,stroke-width:4px
+  style ViewSubmissions fill:#ff9,stroke:#333,stroke-width:4px
+  style ViewStudentSubmissions fill:#9ff,stroke:#333,stroke-width:4px
+  style ReviewAndGrade fill:#9f9,stroke:#333,stroke-width:4px
+  style StoreResults fill:#f99,stroke:#333,stroke-width:4px
+  style ViewAssignedHomework fill:#ff9,stroke:#333,stroke-width:4px
+  style DisplayList fill:#9ff,stroke:#333,stroke-width:4px
+  style SubmitHomework fill:#9f9,stroke:#333,stroke-width:4px
+  style Submit fill:#f99,stroke:#333,stroke-width:4px
+  style ConfirmSubmission fill:#ff9,stroke:#333,stroke-width:4px
+  style HintsSection fill:#9ff,stroke:#333,stroke-width:4px
+  style LinkToNotes fill:#9f9,stroke:#333,stroke-width:4px
+  style CorrectAnswers fill:#f99,stroke:#333,stroke-width:4px
+  style PostDeadline fill:#ff9,stroke:#333,stroke-width:4px
+  style MandatoryVideoTutorials fill:#9ff,stroke:#333,stroke-width:4px
+  style ForLowScorers fill:#9f9,stroke:#333,stroke-width:4px
+  style VideoPlayback fill:#f99,stroke:#333,stroke-width:4px
+  style TrackSubmissions fill:#ff9,stroke:#333,stroke-width:4px
+  style AnalyzePerformance fill:#9ff,stroke:#333,stroke-width:4px
+  style TrackPerformance fill:#9f9,stroke:#333,stroke-width:4px
+  style NotificationsBackend fill:#f99,stroke:#333,stroke-width:4px
+  style NotificationsFrontend fill:#ff9,stroke:#333,stroke-width:4px
+
+  Start[User Opens App] --> Decision{User Role?}
+  Decision -->|Student| StudentLogin[Enter credentials (email/phone + password)]
+  Decision -->|Teacher| TeacherLogin[Enter credentials (email/phone + password)]
+  StudentLogin --> Authentication[Verify credentials with backend (Node.js + Firebase)]
+  TeacherLogin --> Authentication[Verify credentials with backend (Node.js + Firebase)]
+  Authentication -->|Success| Success[Redirect to Dashboard]
+  Authentication -->|Failure| Failure[Display error message]
+  Success -->|Student| StudentDashboard[Student Dashboard]
+  Success -->|Teacher| TeacherDashboard[Teacher Dashboard]
+  TeacherDashboard --> CreateHomework[Input Details: Title, description, deadline, batches/courses]
+  CreateHomework --> SaveToBackend[Save to Backend: Store homework details in Firebase]
+  TeacherDashboard --> ViewSubmissions[Select Homework]
+  ViewSubmissions --> ViewStudentSubmissions[View Student Submissions]
+  ViewStudentSubmissions --> ReviewAndGrade[Review & Grade]
+  ReviewAndGrade --> StoreResults[Store Results]
+  StudentDashboard --> ViewAssignedHomework[Fetch Homework]
+  ViewAssignedHomework --> DisplayList[Display List]
+  StudentDashboard --> SubmitHomework[Upload Answers]
+  SubmitHomework --> Submit[Submit]
+  Submit --> ConfirmSubmission[Confirm Submission]
+  HintsSection[Hints Section] --> LinkToNotes[Link to Notes]
+  CorrectAnswers[Correct Answers] --> PostDeadline[Post-Deadline]
+  MandatoryVideoTutorials[Mandatory Video Tutorials] --> ForLowScorers[For Low Scorers]
+  ForLowScorers --> VideoPlayback[Video Playback]
+  TrackSubmissions[Track Submissions] --> AnalyzePerformance[Analyze Performance]
+  TrackPerformance[Track Performance] --> TrackPerformance
+  NotificationsBackend[Trigger Notifications] --> NotificationsFrontend[Display Notifications]
